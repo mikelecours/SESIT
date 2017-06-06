@@ -1,0 +1,27 @@
+{
+	"contact_name" : "SELECT contacts.cont_id, (contacts.cont_first_name::text || ' '::text) || contacts.cont_last_name::text AS cont_name FROM contrs.contacts;",
+	"organization_name" : "SELECT org_id, org_name FROM contrs.organizations;",
+	"contract_type_codes" : "SELECT contr_type_cd, cont_type_desc FROM contrs.contract_type_codes;",
+	"program_codes" : "SELECT prog_cd, prog_desc FROM contrs.program_codes;",
+	"contract_vehicle_codes" : "SELECT contr_veh_id, contr_veh_desc FROM contrs.contract_vehicle_codes;",
+	"security_class_codes" : "SELECT sec_class_cd, sec_class_desc FROM contrs.security_class_codes;",
+	"organization_type_codes" : "SELECT org_type_code, prg_type_desc FROM contrs.organization_type_codes;",
+	"state_prov_cntry_codes" : "SELECT state_prov_cd, state_prov_name, cntry_cd, cntry_name FROM contrs.state_prov_cntry_codes;",
+	"contract_id" : "SELECT contr_id FROM contrs.contracts;",
+	"employee_id" : " SELECT employees.emp_id, (employees.emp_first_name::text || ' '::text) || employees.emp_last_name::text AS emp_name FROM contrs.employees;",
+	"directive_id" : "SELECT dir_id FROM contrs.directives;",
+	"role_codes" : "SELECT role_cd FROM contrs.role_codes;",
+	"device_type_codes" : "SELECT dev_type_cd, dev_type_desc FROM contrs.device_type_codes;",
+	"tech_restriction_codes" : "SELECT tech_restrict_cd FROM contrs.tech_restriction_codes;",
+	
+	"contracts" : "SELECT * FROM contrs.contracts;",
+	"organizations" : "SELECT * FROM contrs.organizations;",
+	"contacts" : "SELECT * FROM contrs.contacts;",
+	"directives" : "SELECT * FROM contrs.directives;",
+	"releases" : "SELECT * FROM contrs.releases;",
+	"fe_data" : "SELECT * FROM contrs.fe_data;",
+	"employees" : "SELECT * FROM contrs.employees:",
+	"export_regulations" : "SELECT * FROM contrs.export_regulations;",
+	"travel" : "SELECT * FROM contrs.travel;",
+	"devices" : "SELECT * FROM contrs.devices;"
+}

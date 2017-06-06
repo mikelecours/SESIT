@@ -1,0 +1,331 @@
+﻿<!DOCTYPE html>
+<!-- Developed by the SBU senior project team: Joshua Moose, Jimmy Schmitzer, Simon Poe, Preston Tate, Paul Kramer -->
+<html lang="en">
+<head>
+    <title>SuprTEK Contract Application</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/customcss.css">
+	<script src="js\jquery-3.2.1.min.js"></script>
+    <script src="js\bootstrap.min.js"></script>
+    <script src="js\angular.min.js"></script>
+	<script src="js\angular-sanitize.min.js"></script>
+	<script src="js\ng-csv.min.js"></script>
+    <script src="js\controllers\releasesController.js"></script>
+</head>
+<body data-ng-app="myApp">
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 30px;-webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" area-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="Contracts.html">Supr<b>TEK</b> Contract Explorer</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!--<!--<li><a href="Contracts.html">Home</a></li>-->
+                    <li><a href="Contracts.html">Contracts</a></li>
+                    <li><a href="Organizations.html">Organizations</a></li>
+                    <li><a href="Contacts.html">Contacts</a></li>
+                    <li><a href="Directives.html">Directives</a></li>
+                    <li class="active"><a href="Releases.html">Releases</a></li>
+                    <li><a href="DataSets.html">Data Sets</a></li>
+                    <li><a href="ExportRegulations.html">Export Regulations</a></li>
+                    <li><a href="Travel.html">Travel</a></li>
+                    <li><a href="Devices.html">Devices</a></li>
+                    <li><a href="Codes.html">Codes</a></li>
+                    <li><a href="Reports.html">Reports</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container-fluid" style="margin-top:50px;">
+        <!-- Logo -->
+        <div class="page-header" style="text-align:center;">
+            <h1><b>Releases</b></h1>
+        </div>
+        <!--End Nav Tabs-->
+
+       <div class="accordion panel-group" id="accordion" data-ng-controller="resultsCtrl">
+			<div class="accordion-default panel">
+			    <div class="accordion-heading panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1"><h2>Search Releases</h2></a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <!--Search for contacts-->
+
+						<input type="text" name="SearchBy" style="margin: 20px; margin-bottom: -25px;" data-ng-model="f.$" placeholder="Search All Fields">
+                        <button type="submit" style="margin-bottom: 10px; margin-top: 10px; margin-left: 1px;" class="btn btn-default" value="contacts" name="SearchButton" data-ng-click="searchResults()">Search Releases</button>
+                        <button type="submit" style="margin-bottom: 10px; margin-top: 10px" class="btn btn-default" value="contacts" name="refreshButton" data-ng-click="searchResults()"><span class="glyphicon glyphicon-refresh
+						" aria-hidden="true"></span></button>
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px; margin-left: 15px;" class="btn btn-default"data-ng-click="clearFilters()">Clear Search Filters</button>
+						<!--span><a href="ResultsAsTable.html">Advanced Search</a></span-->
+                        <!-- Table Start**************************** -->
+                        <div id="search" class="collapse">
+
+                            <!--button type="submit" value="clearResults">Clear Results</button-->
+
+                            <div id="scrollView" style="max-height:100%; overflow:auto; margin-right: 155px;">
+                                <form name="updateForm" novalidate>
+									<table style="padding: 3px;">
+
+										<tr>
+											<td><input data-ng-model="f.rel_id" placeholder="Filter by Release ID"delete-if-empty></td>
+											<td><input data-ng-model="f.dir_id" placeholder="Filter by Directive ID"delete-if-empty></td>
+											<td><input data-ng-model="f.rel_by" placeholder="Filter by Release Employee"delete-if-empty></td>
+											<td><input data-ng-model="f.rel_date" placeholder="Filter by Release Date"delete-if-empty></td>
+											<td><input data-ng-model="f.recv_by" placeholder="Filter by Recipient of the Relase"delete-if-empty></td>
+											<td><input data-ng-model="f.recv_date" placeholder="Filter by Date Recieved"delete-if-empty></td>
+											<td><input data-ng-model="f.rel_cntry_cd" placeholder="Filter by Country of Release"delete-if-empty></td>
+										</tr>
+
+										<!--tr>
+											<th value="rel_id">Contact ID</th>
+											<th value="dir_id">Organization ID</th>
+											<th value="rel_by">Role</th>
+											<th value="rel_date">First Name</th>
+											<th value="recv_by">Middle Name</th>
+											<th value="recv_date">Last Name</th>
+											<th value="rel_cntry_cd">Title</th>
+											<td><input data-ng-model="f.rel_by" placeholder="Filter by Released by ID"></td>
+											<td><input data-ng-model="f.rel_date" placeholder="Filter by Release Date"></td>
+											<td><input data-ng-model="f.recv_by" placeholder="Filter by Recieved by ID"></td>
+											<td><input data-ng-model="f.recv_date" placeholder="Filter by Recieved Date"></td>
+											<td><input data-ng-model="f.rel_cntry_cd" placeholder="Filter by Recieving Countries"></td>
+										</tr-->
+
+										<tr>
+											<th value="rel_id">Release ID</th>
+											<th value="dir_id">Directive ID</th>
+											<th value="rel_by">Released by ID</th>
+											<th value="rel_date">Release Date</th>
+											<th value="recv_by">Recieved by ID</th>
+											<th value="recv_date">Recieved Date</th>
+											<th value="rel_cntry_cd">Recieving Country</th>
+											<th class="editColumn">Edit</th>
+										</tr>
+
+										<tr data-ng-repeat="x in myResults | filter:f" data-ng-class="{danger:!entry.active}">
+											<td>
+												<span data-ng-hide="editMode">{{ x.rel_id }}</span>
+												<input class="edit_rel_id" type="text" pattern="^\d+$" data-ng-maxlength="9" required data-ng-show="editMode" data-ng-model="x.rel_id"/>
+											</td>
+											<!-- The special block here will swap to being input boxes when the -->
+											<td>
+												<span data-ng-hide="editMode">{{x.dir_id}}</span>
+												<input class="edit_dir_id" type="text" data-ng-maxlength="255" data-ng-show="editMode" data-ng-model="x.dir_id"/>
+											</td>
+											<td>
+												<span data-ng-hide="editMode">{{x.rel_by}}</span>
+												<input class="edit_rel_by" type="text" pattern="^\d+$" data-ng-maxlength="9" required data-ng-show="editMode" data-ng-model="x.rel_by"/>
+											</td>
+											<td>
+												<span data-ng-hide="editMode">{{x.rel_date}}</span>
+												<input class="edit_rel_date" type="text" pattern="^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d$" required data-ng-show="editMode" data-ng-model="x.rel_date"/>
+											</td>
+											<td>
+												<span data-ng-hide="editMode">{{x.recv_by}}</span>
+												<input class="edit_recv_by" type="text" pattern="^\d+$" required data-ng-show="editMode" data-ng-model="x.recv_by"/>
+											</td>
+											<td>
+												<span data-ng-hide="editMode">{{x.recv_date}}</span>
+												<input class="edit_recv_date" type="text" pattern="^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d$" required data-ng-show="editMode" data-ng-model="x.recv_date"/>
+											</td>
+											<td>
+												<span data-ng-hide="editMode">{{x.rel_cntry_cd}}</span>
+												<input class="edit_rel_cntry_cd" type="text" data-ng-maxlength="255" data-ng-show="editMode" data-ng-model="x.rel_cntry_cd"/>
+											</td>
+											<td class="editColumn" style="vertical-align: center; padding: 0; padding-top: 5px;">
+												<button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; editResults(x)" class="btn btn-default">Edit</button>
+												<button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; saveField(x)" class="btn btn-default">Save</button>
+												<button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
+											</td>
+										</tr>
+									</table>
+									
+									<!-- Modal -->
+									<div id="updateDatabaseErrorModal" class="modal fade" role="dialog">
+										<div class="modal-dialog">
+										
+											<!-- Modal content-->
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">Updating New Record Database Issue</h4>
+												</div>
+												
+												<div class="modal-body">
+													{{databaseIssue}}
+												</div>
+													
+												<div class="modal-footer">
+													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+												</div>
+											</div>
+									
+										</div>
+									</div>
+									
+								</form>
+                            </div>
+
+							<button type="button" class="btn btn-default" style="margin: 10px;" data-ng-csv="myResults" filename="results.csv">Export Results to .CSV</button>
+					
+                            <!--End search for contacts-->
+                        </div>
+                        <!-- Table end ********************************-->
+                        <!--End search for contacts-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADDING BLOCK ********************************-->
+           <div class="accordion-default panel">
+			    <div class="accordion-heading panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2"><h2>Add New Release</h2></a>
+                    </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse" data-ng-controller="addCtrl">
+                    <div class="panel-body">
+                        <!--Add new contact-->
+                        <div>
+                            <form name="addForm" novalidate>
+								<!-- data-ng-app="myApp" data-ng-controller="formCtrl" ~~removed bc unused-->
+								<div class="row">
+									<div class="col-lg-3">Release ID:</div>
+									<div class="col-lg-3"><input id="rel_id" type="text" name="relid" data-ng-model="rel_id" tabindex=1
+															pattern="^\d+$" data-ng-maxlength="9" required></div>
+									<div class="col-lg-3">Directive ID:</div>
+									<div class="col-lg-3"><select data-ng-model="dir_id" name="dirid" id="dir_id" tabindex=5 
+																data-ng-options="y.dir_id as y.dir_id for y in dirSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+								</div><!--row-->
+
+								<div class="row">
+									<div class="col-lg-3">Released by ID:</div>
+									<div class="col-lg-3"><select data-ng-model="rel_by" name="relby" id="rel_by" tabindex=2 required
+																data-ng-options="y.emp_id as y.emp_name for y in empSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+									<div class="col-lg-3">Release Date:</div>
+									<div class="col-lg-3"><input id="rel_date" type="text" name="reldate" data-ng-model="rel_date" tabindex=6
+															pattern="^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d$"></div>
+								</div><!--row-->
+
+								<div class="row">
+									<div class="col-lg-3">Received by ID:</div>
+									<div class="col-lg-3"><select data-ng-model="recv_by" name="recvby" id="recv_by" tabindex=3 required
+																data-ng-options="y.cont_id as y.cont_name for y in contSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+									<div class="col-lg-3">Received Date:</div>
+									<div class="col-lg-3"><input id="recv_date" type="text" name="recvdate" data-ng-model="recv_date" tabindex=7
+															pattern="^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d$"></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Release Country:</div>
+									<div class="col-lg-3"><input id="rel_cntry_cd" type="text" name="relcntrycd" data-ng-model="rel_cntry_cd" tabindex=4
+															ng-maxlength="255"></div>
+								</div><!--row-->
+							</form>	
+                      
+
+                        <div class="container-fluid" style="padding:10px;">
+							<button type="submit" class="btn btn-sm btn-default btn-block" value="contacts" data-ng-click="addFunction()" tabindex=20>
+								<span data-ng-show="addForm.$valid" class="glyphicon glyphicon-ok"></span><span data-ng-show="addForm.$invalid" class="glyphicon glyphicon-remove"/></span> Add New Release</button>
+						</div>
+								
+						<!-- Modal -->
+								<div id="addErrorsModal" class="modal fade" role="dialog">
+								  	<div class="modal-dialog">
+									
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									   		<div class="modal-header">
+									        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+									        	<h4 class="modal-title">Adding New Record Validation Errors</h4>
+									      	</div>
+									      	
+											<div class="modal-body">
+											
+												<span data-ng-show="addForm.relid.$error.required">Release ID is required.<br/></span>
+												<span data-ng-show="addForm.relid.$error.pattern">Release ID should be an integer.<br/></span>
+										        <span data-ng-show="addForm.relid.$error.maxlength">Release ID should be 9 digits or fewer.<br/></span>
+												<span data-ng-show="addForm.dirid.$error.maxlength">Directive ID should be less than 255 characters.<br/></span>
+												<span data-ng-show="addForm.relby.$error.required">Released by ID is required.<br/></span>
+										        <span data-ng-show="addForm.relby.$error.maxlength">Released by ID should be less than 255 characters.<br/></span>
+												<span data-ng-show="addForm.reldate.$error.required">Release Date is required.<br/></span>
+												<span data-ng-show="addForm.reldate.$error.pattern">Release Date should be in the format of yyyy-dd-mm hh:mm:ss.<br/></span>
+												<span data-ng-show="addForm.recvby.$error.required">Received by ID is required.<br/></span>
+												<span data-ng-show="addForm.recvby.$error.pattern">Received by ID should be an integer.<br/></span>
+										        <span data-ng-show="addForm.recvby.$error.maxlength">Received by ID should be 9 digits or fewer.<br/></span>
+												<span data-ng-show="addForm.recvdate.$error.required">Received Date is required.<br/></span>
+												<span data-ng-show="addForm.recvdate.$error.pattern">Received Date should be in the format of yyyy-dd-mm hh:mm:ss.<br/></span>
+												<span data-ng-show="addForm.relcntrycd.$error.maxlength">Release Country should be less than 255 characters.<br/></span>
+												
+										    </div>
+										   		
+										   	<div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										    </div>
+									    </div>
+								
+								  	</div>
+								</div>
+						
+							<!-- Modal -->
+							<div id="addSuccessModal" class="modal fade" role="dialog">
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Item Added</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+										Item added successfully, refresh results to see it.
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+						
+                    </div>
+                    <!---End add new contact-->
+                </div>
+            </div>
+        </div>
+        <!-- ADDING BLOCK END *********************************************** -->
+
+
+
+    </div><!--accordian-->
+    </div><!--well-->
+    </div><!--container-->
+
+</body>
+	<section id="footer" style="background-color:#292b34;">
+        <div class="container">
+    	     <div class="navbar-default navbar-fixed-bottom"  style="color: #fff; text-align: center; background-color:#000000; border:0px; padding: 20px;">
+			©Copyright 2017 | SUPERLATIVE TECHNOLOGIES, INC. (dba SUPRTEK)
+    	    </div><!--end .well .well-sm .main-footer-->
+    	</div><!--end .container-->
+    </section><!--end #footer-->
+</html>

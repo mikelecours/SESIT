@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- Developed by the SBU senior project team: Joshua Moose, Jimmy Schmitzer, Simon Poe, Preston Tate, Paul Kramer -->
+<html lang="en">
+<head>
+  <title>SuprTEK Contract Application</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css\bootstrap.css">
+  <link rel="stylesheet" href="css\customcss.css">
+  <script src="js\jquery-3.2.1.min.js"></script>
+  <script src="js\bootstrap.min.js"></script>
+  <script src="js\angular.min.js"></script>
+  <script src="js\controllers\codesController.js"></script>
+</head>
+<body data-ng-app="myApp">
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 30px;-webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" area-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="Contracts.html">Supr<b>TEK</b> Contract Explorer</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!--<li><a href="Contracts.html">Home</a></li>-->
+                    <li><a href="Contracts.html">Contracts</a></li>
+                    <li><a href="Organizations.html">Organizations</a></li>
+                    <li><a href="Contacts.html">Contacts</a></li>
+                    <li><a href="Directives.html">Directives</a></li>
+                    <li><a href="Releases.html">Releases</a></li>
+                    <li><a href="DataSets.html">Data Sets</a></li>
+                    <li><a href="ExportRegulations.html">Export Regulations</a></li>
+                    <li><a href="Travel.html">Travel</a></li>
+                    <li><a href="Devices.html">Devices</a></li>
+                    <li class="active"><a href="Codes.html">Codes</a></li>
+                    <li><a href="Reports.html">Reports</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container-fluid" style="margin-top:50px;" data-ng-controller="resultsCtrl">
+        <!-- Logo -->
+        <div class="page-header" style="text-align:center;">
+            <h1><b>Codes<b></h1>
+        </div>
+		<div class="panel panel-default" style="padding: 30px">
+			<div>
+				<h2>Contract Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Contract Code</th>
+						<th>Contract Description</th>
+					</tr>
+
+					<tr ng-repeat="x in contractTypeCodes">
+						<td>{{ x.contr_type_cd }}</td>
+						<td>{{ x.cont_type_desc }}</td>
+					</tr>	
+				</table>
+			</div>
+			
+			<div>
+				<h2>Program Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Program Code</th>
+						<th>Program Description</th>
+					</tr>
+
+					<tr ng-repeat="x in programCodes ">
+						<td>{{ x.prog_cd }}</td>
+						<td>{{ x.prog_desc }}</td>
+					</tr>	
+				</table>
+			</div>
+			
+			<div>
+				<h2>Contract Vehicle Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Contract Vehicle Code</th>
+						<th>Contract Vehicle Description</th>
+					</tr>
+
+					<tr ng-repeat="x in contractVehicleCodes ">
+						<td>{{ x.contr_veh_id }}</td>
+						<td>{{ x.contr_veh_desc }}</td>
+					</tr>	
+				</table>
+			</div>
+			
+			<div>
+				<h2>Security Class Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Security Class Code</th>
+						<th>Security Class Description</th>
+					</tr>
+
+					<tr ng-repeat="x in securityCodes ">
+						<td>{{ x.sec_class_cd }}</td>
+						<td>{{ x.sec_class_desc }}</td>
+					</tr>	
+				</table>
+			</div>
+			
+			<div>
+				<h2>Device Type Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Device Type Code</th>
+						<th>Device Type Description</th>
+					</tr>
+
+					<tr ng-repeat="x in deviceTypeCodes ">
+						<td>{{ x.dev_type_cd }}</td>
+						<td>{{ x.dev_type_desc }}</td>
+					</tr>	
+				</table>
+			</div>
+			<div>
+				<h2>State/Province Codes:</h2>
+				<table id="scrollView" style="padding: 3px; margin-bottom: 30px; max-height:100px;">
+					<tr>
+						<th>State/Province Code</th>
+						<th>State/Province Name</th>
+						<th>Country Code</th>
+						<th>Country Name</th>
+					</tr>
+
+					<tr ng-repeat="x in stateProvCntryCodes ">
+						<td>{{ x.state_prov_cd }}</td>
+						<td>{{ x.state_prov_name }}</td>
+						<td>{{ x.cntry_cd }}</td>
+						<td>{{ x.cntry_name }}</td>
+					</tr>	
+				</table>
+			</div>
+
+			<div>
+				<h2>Organization Type Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Organization Type Code</th>
+						<th>Organization Type Description</th>
+					</tr>
+
+					<tr ng-repeat="x in organizationTypeCodes ">
+						<td>{{ x.org_type_code }}</td>
+						<td>{{ x.prg_type_desc }}</td>
+					</tr>	
+				</table>
+			</div>
+			
+			<div>
+				<h2>Role Codes:</h2>
+				<table style="padding: 3px; margin-bottom: 30px;">
+					<tr>
+						<th>Role Code</th>
+					</tr>
+
+					<tr ng-repeat="x in roleCodes ">
+						<td>{{ x.role_cd }}</td>
+					</tr>	
+				</table>
+			</div>
+		</div>
+		
+	</div>
+</body>
+	<section id="footer" style="background-color:#292b34;">
+        <div class="container">
+<div class="navbar-default navbar-fixed-bottom"  style="color: #fff; text-align: center; background-color:#000000; border:0px; padding: 20px;">
+			©Copyright 2017 | SUPERLATIVE TECHNOLOGIES, INC. (dba SUPRTEK)
+    	    </div><!--end .well .well-sm .main-footer-->
+    	</div><!--end .container-->
+    </section><!--end #footer-->
+</html>

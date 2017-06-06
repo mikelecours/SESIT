@@ -1,0 +1,259 @@
+.redbutton {
+	color: white;
+	height: 150px;
+	padding-top: 57px;
+	font-size: 36px;
+	font-weight: bold;
+	text-shadow: 2px 2px 4px #000000;	
+	background: #761729; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#761729, #DDDDDD); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#761729, #DDDDDD); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#761729, #DDDDDD); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#761729, #DDDDDD); /* Standard syntax */
+}
+
+.redbutton:hover {
+	color: white;
+	font-size: 48px;
+	height: 175px;
+}
+
+.graybutton {
+	color: white;
+	height: 150px;
+	font-size: 36px;
+	font-weight: bold;
+	text-shadow: 2px 2px 4px #000000;	
+	background: #696969; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#696969, #EEEEEE); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#696969, #EEEEEE); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#696969, #EEEEEE); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#696969, #EEEEEE); /* Standard syntax */
+}
+
+.graybutton:hover {
+	color: white;
+	font-size: 48px;
+	height: 175px;
+}
+
+.bluebutton {
+	color: white;
+	height: 150px;
+	font-size: 36px;
+	font-weight: bold;
+	text-shadow: 2px 2px 4px #000000;	
+	background: #708090; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#708090, #EEEEEE); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#708090, #EEEEEE); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#708090, #EEEEEE); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#708090, #EEEEEE); /* Standard syntax */
+}
+
+.bluebutton:hover {
+	color: white;
+	font-size: 48px;
+	height: 175px;
+}
+
+.blackbutton {
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: black;
+}
+.paraEntry{
+	width:250px;
+	height: 125px;
+}
+
+.boxLabel{
+	color: #761729;
+	width: 200px;
+
+}
+
+.formBox{
+	position: relative;
+	top: -30px;
+	right: -150px;
+	height: 20px;
+}
+
+.boxLabel2{
+	position: relative;
+	left: 550px;
+	bottom: 599px;
+	color: #761729;
+}
+.paraBox2{
+	position: relative;
+	bottom: 599px;
+	left: 550px;
+	height: 75px;
+	width: 400px;
+}
+
+.formBox2{
+	position: relative;
+	left: 765px;
+	bottom: 630px;
+	height: 20px;
+}
+
+.tableLabel{
+	text-decoration: bold;
+	color: #761729;
+}
+
+.expandButton{
+	height: 100px;
+	padding-bottom: 70px;
+}
+
+.expandLabel{
+	color: white;
+	position: relative;
+	bottom: 50px;
+}
+
+.noHeight{
+	height: 0px;
+}
+
+.dropDownSearch{
+	position: relative;
+	top: 13px;
+	left: 25px;
+	height: 20px;
+}
+
+#searchButtonDropDown{
+	position: relative;
+	top: -18px;
+	right: -275px;
+	height: 20px;
+}
+
+#tabs {
+	color: gray;
+	border-style: solid;
+	border-width: 1px 1px 0px 1px;
+	border-color: gray;
+}
+
+#searchBy{
+	height: 65px;
+}
+
+#searchByDropdown{
+	position: relative;
+	top: -30px;
+	right: -150px;
+}
+
+#searchByInput{
+	position: relative;
+	top: -53px;
+	right: -266px;
+	height: 20px;
+}
+
+#searchContract{
+	position: relative;
+	top: -20px;
+	right: -266px;
+	height: 20px;
+}
+
+#searchButton{
+	position: relative;
+	top: -50px;
+	right: -266px;
+	height: 20px;
+}
+
+#logo{
+	position: relative;
+	left: 25%;
+	width:50%;
+	height:50%;
+}
+
+#search{
+	background: #f5f5f5;
+}
+
+#add{
+	padding: 5px;
+	margin: 5px;
+}
+.row{
+	padding-top: 6px;
+	margin-left: 15px;
+}
+
+.scrollView {
+	max-height:100%; 
+	overflow:auto; 
+	margin-right: 155px;
+}
+
+table{
+    border: 0px; 
+	border-collapse: collapse;
+    table-layout: fixed;
+	background-color: #ffffff;
+}
+
+th, td {
+    border: 0px; 
+	border-collapse: collapse;
+	text-align: center;
+	white-space: nowrap;
+	padding: 10px;
+	padding-top: 13px;
+	padding-bottom: 13px;
+	font-weight: normal;
+}
+
+th {
+	font-weight: bold;
+}
+
+.editColumn {
+	position:absolute; -webkit-transform: translateZ(0); /* -webkit-transform needed to resolve Chrome rendering bug with fixed elements in table */
+	right: 30px;
+	width: 155px;
+}
+
+tr:nth-child(even) {
+	background: #FFF;
+}
+tr:nth-child(odd) {
+	background: #f5f5f5;
+}
+
+.panel-heading{
+ margin-bottom: 30px;-webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;"
+}
+
+.panel-body .img-thumbnail{
+	padding:0px;border:1px solid transparent
+} /*remove padding and add transparent border*/
+
+.panel-heading:hover {
+   background-color:#c0c0c0 ; /*change the transparent border to yellow*/
+   border size: 50px;
+   /*color: #fff;*/
+}
+
+#results input.ng-invalid, .row input.ng-invalid, .row select.ng-invalid, td input.ng-invalid {
+	border-color: #FA787E;
+}
+
+.panel div table{
+	border: 1px solid #dddddd;
+}

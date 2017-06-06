@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<!-- Developed by the SBU senior project team: Joshua Moose, Jimmy Schmitzer, Simon Poe, Preston Tate, Paul Kramer -->
+<html lang="en">
+<head>
+	<title>SuprTEK Contract Application</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css\bootstrap.css"> <!--import for bootstrap css-->
+	<link rel="stylesheet" href="css\customcss.css"> <!--import for team custom css-->
+	<script src="js\jquery-3.2.1.min.js"></script> <!-- imports -->
+	<script src="js\bootstrap.min.js"></script>  <!-- for -->
+	<script src="js\angular.min.js"></script> <!-- JavaScript Files -->
+	<script src="js\angular-sanitize.min.js"></script>
+	<script src="js\ng-csv.min.js"></script>
+	<script src="js\controllers\contactsController.js"></script> <!--Import for page control -->
+</head>
+<body data-ng-app="myApp">
+<nav class="navbar navbar-default navbar-fixed-top"style="margin-bottom: 30px;-webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;">
+<div class="container-fluid"> <!-- Header and menu bar -->
+	<div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" data-area-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+      </button>
+      <a class="navbar-brand" href="Contracts.html">Supr<b>TEK</b> Contract Explorer</a>
+    </div>
+	 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> <!-- Menu -->
+      <ul class="nav navbar-nav">
+         <!--<li><a href="Contracts.html">Home</a></li>-->
+		 <li><a href="Contracts.html">Contracts</a></li>
+				<li><a href="Organizations.html">Organizations</a></li>
+				<li class="active"><a href="Contacts.html">Contacts</a></li>
+				<li><a href="Directives.html">Directives</a></li>  
+				<li><a href="Releases.html">Releases</a></li>
+				<li><a href="DataSets.html">Data Sets</a></li>
+				<li><a href="ExportRegulations.html">Export Regulations</a></li>
+				<li><a href="Travel.html">Travel</a></li>
+				<li><a href="Devices.html">Devices</a></li>
+				<li><a href="Codes.html">Codes</a></li>		
+				<li><a href="Reports.html">Reports</a></li>	
+		   </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+
+<div class="container-fluid" style="margin-top:50px;">
+	<!-- Logo -->
+	<div class="page-header" style="text-align:center;">
+  		<h1><b>Contacts</b></h1>
+	</div>
+	
+	<!--Navigation Tabs /-->
+
+		<!--End Nav Tabs-->
+		
+		<div class="accordion panel-group" id="accordion" data-ng-controller="resultsCtrl"> <!-- Accordion for search and add -->
+			<div class="accordion-default panel"> <!-- Search and Edit area -->
+			    <div class="accordion-heading panel-heading"> 
+					<h4 class="panel-title">
+					<a data-toggle="collapse" href="#collapse1"><h2>Search Contacts</h2></a>
+					</h4>
+			    </div>
+				<div id="collapse1" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<!--Search for contacts-->
+						
+						<input type="text" name="SearchBy" style="margin: 20px;" data-ng-model="f.$" placeholder="Search All Fields">
+						
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px; margin-left: 1px;" class="btn btn-default" data-ng-click="searchResults()">Search Contacts</button> <!-- Searches and expands results and edit area -->
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px" class="btn btn-default" name="refreshButton" data-ng-click="searchResults()"><span class="glyphicon glyphicon-refresh
+						" aria-hidden="true"></span></button>
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px; margin-left: 15px;" class="btn btn-default"data-ng-click="clearFilters()">Clear Search Filters</button> <!-- Clears all filters -->
+		
+		<!-- Table Start**************************** -->				
+				<div id="search" class="collapse">
+				
+					<div id="scrollView" style="max-height:100%; overflow:auto; margin-right: 155px;">
+						<form name="updateForm" novalidate>
+							<table style="padding: 3px;">
+								
+								<tr>
+									<td><input data-ng-model="f.cont_id" placeholder="Filter by Contact ID" data-delete-if-empty></td> <!-- needs delete if empty in the filter input to clear for null values -->
+									<td><input data-ng-model="f.cont_org_id" placeholder="Filter by Organization ID" data-delete-if-empty></td> <!--All table values for a Contract-->
+									<td><input data-ng-model="f.cont_role_cd" placeholder="Filter by Role CD" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_first_name" placeholder="Filter by First Name" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_middle_name" placeholder="Filter by Middle Name" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_last_name" placeholder="Filter by Last name" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_name_title" placeholder="Filter by Name Title" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_name_suffix" placeholder="Filter by Name Suffix" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_addr1" placeholder="Filter by Address 1" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_addr2" placeholder="Filter by Address 2" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_city" placeholder="Filter by City" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_state_prov_cd" placeholder="Filter by State/Province" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_post_cd" placeholder="Filter by Postal Code" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_cntry_Cd" placeholder="Filter by Country" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_office_phone" placeholder="Filter by Office Number" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_mobile_phone" placeholder="Filter by Mobile Number" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_home_phone" placeholder="Filter by Home Number" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_email" placeholder="Filter by Email" data-delete-if-empty></td>
+									<td><input data-ng-model="f.cont_alt_email" placeholder="Filter by Alt Email" data-delete-if-empty></td>
+									<td class="editColumn"></td>
+								</tr>
+												
+								<tr>
+									<th>Contact ID</th>  <!-- Column headers -->
+									<th>Organization ID</th>
+									<th>Role</th>
+									<th>First Name</th>
+									<th>Middle Name</th>
+									<th>Last Name</th>
+									<th>Title</th>
+									<th>Name Suffix</th>
+									<th>Address 1</th>
+									<th>Address 2</th>
+									<th>City</th>
+									<th>State/Province</th>
+									<th>Postal Code</th>
+									<th>Country</th>
+									<th>Office Phone</th>
+									<th>Mobile Phone</th>
+									<th>Home Phone</th>
+									<th>Primary Email</th>
+									<th>Alt Email</th>
+									<th class="editColumn">Edit</th>
+								</tr>
+
+								<tr data-ng-repeat="x in myResults | filter:f" data-ng-class="{danger:!entry.active}"> <!-- Activates the ability to edit contracts directly on the search results page -->
+									<td>
+										<span data-ng-hide="editMode">{{ x.cont_id }}</span>
+										<input class="edit_cont_id" id="edit_cont_id" type="text" data-ng-show="editMode" data-ng-model="x.cont_id" required />
+									</td>
+									<!-- The special block here will swap to being input boxes when the -->
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_org_id}}</span>
+										<input class="edit_cont_org_id" type="text" data-ng-show="editMode" data-ng-model="x.cont_org_id" required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_role_cd}}</span>
+										<input class="edit_cont_role_cd" type="text" data-ng-show="editMode" data-ng-model="x.cont_role_cd" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_first_name}}</span>
+										<input class="edit_cont_first_name" id="edit_cont_first_name" type="text" data-ng-show="editMode" data-ng-model="x.cont_first_name" required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_middle_name}}</span>
+										<input class="edit_cont_middle_name" type="text" data-ng-show="editMode" data-ng-model="x.cont_middle_name" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_last_name}}</span>
+										<input class="edit_cont_last_name" id="edit_cont_last_name" type="text" data-ng-show="editMode" data-ng-model="x.cont_last_name" required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_name_title}}</span>
+										<input class="edit_cont_name_title" type="text" data-ng-show="editMode" data-ng-model="x.cont_name_title" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_name_suffix}}</span>
+										<input class="edit_cont_name_suffix" type="text" data-ng-show="editMode" data-ng-model="x.cont_name_suffix" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_addr1}}</span>
+										<input class="edit_cont_addr1" type="text" data-ng-show="editMode" data-ng-model="x.cont_addr1" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_addr2}}</span>
+										<input class="edit_cont_addr2" type="text" data-ng-show="editMode" data-ng-model="x.cont_addr2" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_city}}</span>
+										<input class="edit_cont_city" type="text" data-ng-show="editMode" data-ng-model="x.cont_city" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_state_prov_cd}}</span>
+										<input class="edit_cont_state_prov_cd" type="text" data-ng-show="editMode" data-ng-model="x.cont_state_prov_cd" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_post_cd}}</span>
+										<input class="edit_cont_post_cd" type="text" data-ng-show="editMode" data-ng-model="x.cont_post_cd" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_cntry_Cd}}</span>
+										<select class="dropdown" data-ng-model="x.cont_cntry_Cd" data-ng-show="editMode">
+											<option value="">Select Country
+											<option value="USA">USA
+											<option value="CAN">CAN
+										</select>
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_office_phone}}</span>
+										<input class="edit_cont_office_phone" type="text" data-ng-show="editMode" data-ng-model="x.cont_office_phone" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_mobile_phone}}</span>
+										<input class="edit_cont_mobile_phone" type="text" data-ng-show="editMode" data-ng-model="x.cont_mobile_phone" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_home_phone}}</span>
+										<input class="edit_cont_home_phone" type="text" data-ng-show="editMode" data-ng-model="x.cont_home_phone" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_email}}</span>
+										<input class="edit_cont_email" type="text" data-ng-show="editMode" data-ng-model="x.cont_email" data-ng-required />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cont_alt_email}}</span>
+										<input class="edit_cont_alt_email" type="text" data-ng-show="editMode" data-ng-model="x.cont_alt_email" data-ng-required />
+									</td>
+									<td class="editColumn" style="vertical-align: center; padding: 0; padding-top: 5px;">
+										<button type="submit" data-ng-disable="editMode" data-ng-hide="editMode" data-ng-click="editMode = true; editResults(x)" class="btn btn-default">Edit</button>
+										<button data-ng-disabled="!updateForm.$valid" type="submit" data-ng-show="editMode" data-ng-click="editMode = false; saveField(x)" class="btn btn-default">Save</button>
+										<button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel(x)" class="btn btn-default">Cancel</button>
+									</td>
+								</tr>
+							</table>
+							
+							<!-- Modal -->
+							<div id="updateDatabaseErrorModal" class="modal fade" role="dialog"> <!-- Shows error messages if update fails -->
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Updating New Record Database Issue</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+											{{databaseIssue}}
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+						</form>
+					</div>
+	
+					<button type="button" class="btn btn-default" style="margin: 10px;" data-ng-csv="myResults" filename="results.csv">Export Results to .CSV</button>
+						
+						<!--End search for contacts-->
+				</div>
+				<!-- Table end ********************************-->
+				
+				
+				
+						<!--End search for contacts-->
+					</div>
+				</div>
+			</div>
+			
+			<!-- ADDING BLOCK ********************************-->
+			<div class="accordion-default panel"> <!-- Accordion for adding new Contact -->
+			    <div class="accordion-heading panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse2"><h2>Add New Contact</h2></a> <!-- Opens Add panel -->
+					</h4>
+				</div>
+				<div id="collapse2" class="panel-collapse collapse" data-ng-controller="addCtrl">
+					<div class="panel-body">
+						<!--Add new contact-->
+						<div> <!-- data-ng-app="myApp" data-ng-controller="formCtrl" ~~removed bc unused-->
+							<form name="addForm" novalidate> <!-- Form for adding Contact -->
+								<div class="row"> <!-- All input validated based on Access program -->
+									<div class="col-lg-3">Contact ID:</div>
+									<div class="col-lg-3"><input id="cont_id" name="contid" type="text" data-ng-minlength="1" data-ng-maxlength="255" required
+															data-ng-model="cont_id" tabindex=1></div>
+									<div class="col-lg-3">City:</div>
+									<div class="col-lg-3"><input id="cont_city" type="text" name="contcity" data-ng-model="cont_city" tabindex=11></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Organization ID:</div>
+									<div class="col-lg-3"><select data-ng-model="cont_org_id" name="contorgid" id="cont_org_id" tabindex=2 required
+																data-ng-options="y.org_id as y.org_name for y in orgSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+									<div class="col-lg-3">State or Province:</div>
+									<div class="col-lg-3"><select data-ng-model="cont_state_prov_cd" name="contstateprovcd" id="cont_state_prov_cd" tabindex=12
+																data-ng-options="y.state_prov_cd as y.state_prov_name for y in stateProvSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Role:</div>
+									<div class="col-lg-3"><select data-ng-model="cont_role_cd" name="controlecd" id="cont_role_cd" tabindex=3
+																data-ng-options="y.role_cd as y.role_cd for y in roleSelect">
+																<option value=""></option>
+																</select></div>
+									<div class="col-lg-3">Postal Code:</div>
+									<div class="col-lg-3"><input id="cont_post_cd" type="text" name="contpostcd" data-ng-model="cont_post_cd" tabindex=13></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">First Name:</div>
+									<div class="col-lg-3"><input id="cont_first_name" type="text" name="contfirstname" data-ng-maxlength="255" required
+															data-ng-model="cont_first_name" tabindex=4></div>
+									<div class="col-lg-3">Country:</div>
+									<div class="col-lg-3"><select class="dropdown" data-ng-model="cont_cntry_Cd" tabindex=14>
+											<option value="">
+											<option value="USA">USA
+											<option value="CAN">CAN
+										</select></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Middle Name:</div>
+									<div class="col-lg-3"><input id="cont_middle_name" type="text" name="contmiddlename" data-ng-model="cont_middle_name" tabindex=5></div>
+									<div class="col-lg-3">Office Phone:</div>
+									<div class="col-lg-3"><input id="cont_office_phone" type="text" name="contofficephone" data-ng-model="cont_office_phone" tabindex=15></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Last Name:</div>
+									<div class="col-lg-3"><input id="cont_last_name" type="text" name="contlastname" data-ng-maxlength="255" required
+															data-ng-model="cont_last_name" tabindex=6></div>
+									<div class="col-lg-3">Mobile Phone:</div>
+									<div class="col-lg-3"><input id="cont_mobile_phone" type="text" name="contmobilephone" data-ng-model="cont_mobile_phone" tabindex=16></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Name Title:</div>
+									<div class="col-lg-3"><input id="cont_name_title" type="text" name="contnametitle" data-ng-model="cont_name_title" tabindex=7></div>
+									<div class="col-lg-3">Home Phone:</div>
+									<div class="col-lg-3"><input id="cont_home_phone" type="text" name="conthomephone" data-ng-model="cont_home_phone" tabindex=17></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Name Suffix:</div>
+									<div class="col-lg-3"><input id="cont_name_suffix" type="text" name="contnamesuffix" data-ng-model="cont_name_suffix" tabindex=7></div>
+									<div class="col-lg-3">Email:</div>
+									<div class="col-lg-3"><input id="cont_email" type="text" name="contemail" data-ng-model="cont_email" tabindex=18></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Address Line 1:</div>
+									<div class="col-lg-3"><input id="cont_addr1" type="text" name="contaddr1" data-ng-model="cont_addr1" tabindex=8></div>
+									<div class="col-lg-3">Alt Email:</div>
+									<div class="col-lg-3"><input id="cont_alt_email" type="text" name="contaltemail" data-ng-model="cont_alt_email" tabindex=19></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Address Line 2:</div>
+									<div class="col-lg-3"><input id="cont_addr2" type="text" name="contaddr2" data-ng-model="cont_addr2" tabindex=10></div>
+						
+								</div><!--row-->
+                                <div class="container-fluid" style="padding:10px;">
+									<button type="submit" class="btn btn-sm btn-default btn-block" value="contacts" data-ng-click="addFunction()" tabindex=20>
+										<span data-ng-show="addForm.$valid" class="glyphicon glyphicon-ok"></span><span data-ng-show="addForm.$invalid" class="glyphicon glyphicon-remove"/></span> Add New Contact</button>
+								</div>
+							</form>		
+						</div>
+							
+							<!-- Modal -->
+							<div id="addErrorsModal" class="modal fade" role="dialog"> <!-- error message if input validation fails -->
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Adding New Record Validation Errors</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+											
+											<span data-ng-show="addForm.contid.$error.required">Contact ID is required.<br/></span>
+											<span data-ng-show="addForm.contid.$error.pattern">Contact ID should be an integer.<br/></span>
+									        <span data-ng-show="addForm.contid.$error.maxlength">Contact ID should be 9 digits or fewer.<br/></span>
+											<span data-ng-show="addForm.contorgid.$error.required">Organization ID is required.<br/></span>
+											<span data-ng-show="addForm.contorgid.$error.pattern">Organization ID should be an integer.<br/></span>
+									        <span data-ng-show="addForm.contorgid.$error.maxlength">Organization ID should be 9 digits or fewer.<br/></span>
+											<span data-ng-show="addForm.controlecd.$error.maxlength">Role should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contfirstname.$error.required">First Name is required.<br/></span>
+									        <span data-ng-show="addForm.contfirstname.$error.maxlength">First Name should be less than 255 characters.<br/></span>
+									        <span data-ng-show="addForm.contmiddlename.$error.maxlength">Middle Name should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contlastname.$error.required">Last Name is required.<br/></span>
+									        <span data-ng-show="addForm.contlastname.$error.maxlength">Last Name should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contnametitle.$error.maxlength">Name Title should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contnamesuffix.$error.maxlength">Name Suffix should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contaddr1.$error.maxlength">Address Line 1 should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contaddr2.$error.maxlength">Address Line 2 should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contcity.$error.maxlength">City should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contstateprovcd.$error.maxlength">State or Province should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contpostcd.$error.maxlength">Postal Code should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contcntryCd.$error.maxlength">Country should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contofficephone.$error.maxlength">Office Phone should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contmobilephone.$error.maxlength">Mobile Phone should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.conthomephone.$error.maxlength">Home Phone should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contemail.$error.maxlength">Email should be less than 255 characters.<br/></span>
+											<span data-ng-show="addForm.contaltemail.$error.maxlength">Alt Email should be less than 255 characters.<br/></span>
+
+									    </div>
+										   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+						
+							<!-- Modal -->
+							<div id="addSuccessModal" class="modal fade" role="dialog"> <!-- Successfully added message -->
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Item Added</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+										Item added successfully, refresh results to see it.
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+							
+							<!-- Modal -->
+							<div id="addDatabaseErrorModal" class="modal fade" role="dialog"> <!-- Error message for failed add -->
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Adding New Record Database Issue</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+											{{databaseIssue}}
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+						<!---End add new contact-->
+					</div>
+				</div>
+			</div>
+			<!-- ADDING BLOCK END *********************************************** -->
+			
+			
+			
+		</div><!--accordian-->
+	
+	</div><!--well-->
+	
+</body>
+	<section id="footer" style="background-color:#292b34;"> <!-- footer taken from SUPRTEK's main website -->
+        <div class="container">
+    	    <div class="navbar-default navbar-fixed-bottom"  style="color: #fff; text-align: center; background-color:#000000; border:0px; padding: 20px;">
+			©Copyright 2017 | SUPERLATIVE TECHNOLOGIES, INC. (dba SUPRTEK)
+    	    </div><!--end .well .well-sm .main-footer-->
+    	</div><!--end .container-->
+    </section><!--end #footer-->
+</html>

@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<!-- Developed by the SBU senior project team: Joshua Moose, Jimmy Schmitzer, Simon Poe, Preston Tate, Paul Kramer -->
+<html lang="en">
+<head>
+	<title>SuprTEK Contract Application</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css\bootstrap.css">
+	<link rel="stylesheet" href="css\customcss.css">
+	<script src="js\jquery-3.2.1.min.js"></script>
+	<script src="js\bootstrap.min.js"></script>
+	<script src="js\angular.min.js"></script>
+	<script src="js\angular-sanitize.min.js"></script>
+	<script src="js\ng-csv.min.js"></script>
+	<script src="js\controllers\organizationsController.js"></script>
+</head>
+<body data-ng-app="myApp">
+    <nav class="navbar navbar-default navbar-fixed-top" style="margin-bottom: 30px;-webkit-box-shadow: 0 8px 6px -6px #999;
+    -moz-box-shadow: 0 8px 6px -6px #999;
+    box-shadow: 0 8px 6px -6px #999;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" area-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                </button>
+                <a class="navbar-brand" href="Contracts.html">Supr<b>TEK</b> Contract Explorer</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <!--<!--<li><a href="Contracts.html">Home</a></li>-->
+                    <li><a href="Contracts.html">Contracts</a></li>
+                    <li class="active"><a href="Organizations.html">Organizations</a></li>
+                    <li><a href="Contacts.html">Contacts</a></li>
+                    <li><a href="Directives.html">Directives</a></li>
+                    <li><a href="Releases.html">Releases</a></li>
+                    <li><a href="DataSets.html">Data Sets</a></li>
+                    <li><a href="ExportRegulations.html">Export Regulations</a></li>
+                    <li><a href="Travel.html">Travel</a></li>
+                    <li><a href="Devices.html">Devices</a></li>
+                    <li><a href="Codes.html">Codes</a></li>
+                    <li><a href="Reports.html">Reports</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    
+    <div class="container-fluid" style="margin-top:50px;">
+        <!-- Logo -->
+        <div class="page-header" style="text-align:center;">
+            <h1><b>Organizations</b></h1>
+        </div>
+		
+		<div class="accordion panel-group" id="accordion" data-ng-controller="resultsCtrl">
+			<div class="accordion-default panel">
+			    <div class="accordion-heading panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse1"><h2>Search Organizations</h2></a>
+					</h4>
+			    </div>
+				<div id="collapse1" class="panel-collapse collapse in">
+					<div class="panel-body">
+						<!--Search for contacts-->
+						
+						<input type="text" name="SearchBy" style="margin: 20px; margin-bottom: -25px;" data-ng-model="f.$" placeholder="Search All Fields">
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px; margin-left: 1px;" class="btn btn-default" value="contacts" name="SearchButton" data-ng-click="searchResults()">Search Organizations</button>
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px" class="btn btn-default" value="contacts" name="refreshButton" data-ng-click="searchResults()"><span class="glyphicon glyphicon-refresh
+						" aria-hidden="true"></span></button>
+						<button type="submit" style="margin-bottom: 10px; margin-top: 10px; margin-left: 15px;" class="btn btn-default"data-ng-click="clearFilters()">Clear Search Filters</button>
+		<!-- Table Start**************************** -->				
+				<div id="search" class="collapse" >
+					
+					<!--button type="submit" value="clearResults">Clear Results</button-->
+					
+					<div id="scrollView" style="max-height:100%; overflow:auto; margin-right: 155px;">
+						<form name="updateForm" novalidate>
+							<table style="padding: 3px;">
+								
+								<tr>
+									<td><input data-ng-model="f.org_id" placeholder="Filter by Organizatoin ID"delete-if-empty></td>
+									<td><input data-ng-model="f.org_type_cd" placeholder="Filter by Organization"delete-if-empty></td>
+									<td><input data-ng-model="f.org_name" placeholder="Filter by Organization Name"delete-if-empty></td>
+									<td><input data-ng-model="f.org_div" placeholder="Filter by Division or Business Unit"delete-if-empty></td>
+									<td><input data-ng-model="f.org_addr1" placeholder="Filter by Address Line 1"delete-if-empty></td>
+									<td><input data-ng-model="f.org_addr2" placeholder="Filter by Address Line 2"delete-if-empty></td>
+									<td><input data-ng-model="f.org_city" placeholder="Filter by City"delete-if-empty></td>
+									<td><input data-ng-model="f.org_state_prov_cd" placeholder="Filter by Sate"delete-if-empty></td>
+									<td><input data-ng-model="f.org_post_cd" placeholder="Filter by Postal Code"delete-if-empty></td>
+									<td><input data-ng-model="f.org_cntry_cd" placeholder="Filter by Country"delete-if-empty></td>
+									<td><input data-ng-model="f.cage_cd" placeholder="Filter by Cage Code"delete-if-empty></td>
+									<!--<td class="editColumn"></td>-->
+									<!-- Contract vehicle code-->
+								</tr>
+												
+								<tr>
+									<th value="org_id">Organization ID</th>
+									<th value="org_type_cd">Organization Type</th>
+									<th value="org_name">Organization Name</th>
+									<th value="org_div">Division or Business Unit</th>
+									<th value="org_addr1">Address Line 1</th>
+									<th value="org_addr2">Address Line 2</th>
+									<th value="org_city">City</th>
+									<th value="org_state_prov_cd">State or Province</th>
+									<th value="org_post_cd">Postal Code</th>
+									<th value="org_cntry_cd">Country</th>
+									<th value="cage_cd">Cage Code</th>
+									<th class="editColumn">Edit</th>
+								</tr>
+	
+								<tr data-ng-repeat="x in myResults | filter:f" data-ng-class="{danger:!entry.active}">
+									<td>
+										<span data-ng-hide="editMode">{{ x.org_id }}</span>
+										<input class="edit_org_id" type="text" data-ng-show="editMode" pattern="^\d+$" required data-ng-model="x.org_id" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{ x.org_type_cd }}</span>
+										<input class="edit_org_type_cd" type="text" data-ng-show="editMode" data-ng-maxlength="255" required data-ng-model="x.org_type_cd" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_name}}</span>
+										<input class="edit_org_name" type="text" data-ng-show="editMode" data-ng-maxlength="255" required data-ng-model="x.org_name" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_div}}</span>
+										<input class="edit_org_div" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_div" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_addr1}}</span>
+										<input class="edit_org_addr1" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_addr1" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_addr2}}</span>
+										<input class="edit_org_addr2" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_addr2" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_city}}</span>
+										<input class="edit_org_city" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_city" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_state_prov_cd}}</span>
+										<input class="edit_org_state_prov_cd" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_state_prov_cd" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_post_cd}}</span>
+										<input class="edit_org_post_cd" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_post_cd" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.org_cntry_cd}}</span>
+										<input class="edit_org_cntry_cd" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.org_cntry_cd" />
+									</td>
+									<td>
+										<span data-ng-hide="editMode">{{x.cage_cd}}</span>
+										<input class="edit_cage_cd" type="text" data-ng-show="editMode" data-ng-maxlength="255" data-ng-model="x.cage_cd" />
+									</td>
+									<td class="editColumn" style="vertical-align: center; padding: 0; padding-top: 5px;">
+										<button type="submit" data-ng-hide="editMode" data-ng-click="editMode = true; editResults(x)" class="btn btn-default">Edit</button>
+										<button data-ng-disabled="!updateForm.$valid" type="submit" data-ng-show="editMode" data-ng-click="editMode = false; saveField(x)" class="btn btn-default">Save</button>
+										<button type="submit" data-ng-show="editMode" data-ng-click="editMode = false; cancel()" class="btn btn-default">Cancel</button>
+									</td>
+								</tr>	
+							</table>
+							
+							<!-- Modal -->
+							<div id="updateDatabaseErrorModal" class="modal fade" role="dialog">
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Updating New Record Database Issue</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+											{{databaseIssue}}
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+							
+						</form>
+					</div>
+					
+					<button type="button" class="btn btn-default" style="margin: 10px;" data-ng-csv="myResults" filename="results.csv">Export Results to .CSV</button>
+						
+						<!--End search for contacts-->
+				</div>
+				<!-- Table end ********************************-->
+				
+				
+				
+						<!--End search for contacts-->
+					</div>
+				</div>
+			</div>
+			
+			<!-- ADDING BLOCK ********************************-->
+			<div class="accordion-default panel">
+			    <div class="accordion-heading panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse2"><h2>Add New Organization</h2></a>
+					</h4>
+				</div>
+				<div id="collapse2" class="panel-collapse collapse" data-ng-controller="addCtrl">
+					<div class="panel-body">
+						<!--Add new contact-->
+						<div> <!-- data-ng-app="myApp" data-ng-controller="formCtrl" ~~removed bc unused-->
+							<form name="addForm" novalidate>
+								<div class="row">
+									<div class="col-lg-3">Organization ID:</div>
+									<div class="col-lg-3"><input id="org_id" type="text" name="orgid"  pattern="^\d+$" required data-ng-model="org_id" tabindex=1/></div>
+									<!--Insert vehicle code-->
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Organization Type:</div>
+									<div class="col-lg-3"><select data-ng-model="org_type_cd" name="orgtypecd" id="org_type_cd" tabindex=2 required
+																data-ng-options="y.org_type_code as y.prg_type_desc for y in orgTypeSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Organization Name:</div>
+									<div class="col-lg-3"><input id="org_name" type="text" name="orgname" data-ng-maxlength="255" required data-ng-model="org_name" tabindex=3/></div>			
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Division or Business Unit:</div>
+									<div class="col-lg-3"><input id="org_div" type="text" name="orgdiv" data-ng-maxlength="255" data-ng-model="org_div" tabindex=4/></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Address Line 1:</div>
+									<div class="col-lg-3"><input id="org_addr1" type="text" name="orgaddr1"  data-ng-maxlength="255" data-ng-model="org_addr1" tabindex=5/></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Address Line 2:</div>
+									<div class="col-lg-3"><input id="org_addr2" type="text" name="orgaddr2"  data-ng-maxlength="255" data-ng-model="org_addr2" tabindex=6/></div>
+									
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">City:</div>
+									<div class="col-lg-3"><input id="org_city" type="text" name="orgcity"  data-ng-maxlength="255" data-ng-model="org_city" tabindex=7/></div>
+								</div><!--row-->
+								
+								<div class="row">
+										<div class="col-lg-3">State or Province:</div>
+									<div class="col-lg-3"><select data-ng-model="org_state_prov_cd" name="orgstateprovcd" id="org_state_prov_cd" tabindex=8
+																data-ng-options="y.state_prov_cd as y.state_prov_name for y in stateProvSelect"> <!-- Select option example that populates based on database -->
+															<option value=""></option>
+														</select></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Postal Code:</div>
+									<div class="col-lg-3"><input id="org_post_cd" type="text" name="orgpostcd" data-ng-maxlength="255" data-ng-model="org_post_cd" tabindex=9/></div>
+								</div><!--row-->
+								
+								<div class="row">
+									<div class="col-lg-3">Country:</div>
+									<div class="col-lg-3"><select class = "dropdown" name="orgcntrycd" data-ng-model="org_cntry_cd" tabindex=10>
+											<option value="USA">USA
+											<option value="CAN">CAN
+										</select></div>
+								</div>
+								<div class="row">
+									<div class="col-lg-3">Cage Code:</div>
+									<div class="col-lg-3"><input id="cage_cd" type="text" name="cagecd" data-ng-maxlength="255" data-ng-model="cage_cd" tabindex=11/></div>
+								
+								</div><!--row-->
+								
+							</form>
+								
+                                <div class="container-fluid" style="padding:10px;">
+									<button type="submit" class="btn btn-sm btn-default btn-block" value="contacts" data-ng-click="addFunction()" tabindex=20>
+										<span data-ng-show="addForm.$valid" class="glyphicon glyphicon-ok"></span><span data-ng-show="addForm.$invalid" class="glyphicon glyphicon-remove"/></span> Add New Organization</button>
+								</div>
+								
+								<!-- Modal -->
+								<div id="addErrorsModal" class="modal fade" role="dialog">
+								  	<div class="modal-dialog">
+									
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									   		<div class="modal-header">
+									        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+									        	<h4 class="modal-title">Adding New Record Validation Errors</h4>
+									      	</div>
+									      	
+											<div class="modal-body">
+											
+												<span data-ng-show="addForm.orgid.$error.required">Organization ID is required.<br/></span>
+												<span data-ng-show="addForm.orgid.$error.pattern">Organization ID should be an integer.<br/></span>
+										        <span data-ng-show="addForm.orgid.$error.maxlength">Organization ID should be 9 digits or fewer.<br/></span>
+												<span data-ng-show="addForm.orgtypecd.$error.required">Organization Type is required.<br/></span>
+										        <span data-ng-show="addForm.orgtypecd.$error.maxlength">Organization Type should be less than 255 characters.<br/></span>
+												<span data-ng-show="addForm.orgname.$error.required">Organization Name is required.<br/></span>
+										        <span data-ng-show="addForm.orgname.$error.maxlength">Organization Name should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgdiv.$error.maxlength">Division or Business Unit should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgaddr1.$error.maxlength">Address Line 1 should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgaddr2.$error.maxlength">Address Line 2 should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgcity.$error.maxlength">City should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgstateprov_cd.$error.maxlength">State or Province should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgpostcd.$error.maxlength">Postal Code should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.orgcntrycd.$error.maxlength">Country should be less than 255 characters.<br/></span>
+										        <span data-ng-show="addForm.cagecd.$error.maxlength">Cage Code should be less than 255 characters.<br/></span>
+												
+										    </div>
+										   		
+										   	<div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										    </div>
+									    </div>
+								
+								  	</div>
+								</div>
+						
+							<!-- Modal -->
+							<div id="addSuccessModal" class="modal fade" role="dialog">
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Item Added</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+										Item added successfully, refresh results to see it.
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+							
+							<!-- Modal -->
+							<div id="addDatabaseErrorModal" class="modal fade" role="dialog">
+							  	<div class="modal-dialog">
+								
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								   		<div class="modal-header">
+								        	<button type="button" class="close" data-dismiss="modal">&times;</button>
+								        	<h4 class="modal-title">Adding New Record Database Issue</h4>
+								      	</div>
+								      	
+										<div class="modal-body">
+											{{databaseIssue}}
+										</div>
+									   		
+									   	<div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									    </div>
+								    </div>
+							
+							  	</div>
+							</div>
+							
+						</div>
+						<!---End add new contact-->
+					</div>
+				</div>
+			</div>
+			<!-- ADDING BLOCK END *********************************************** -->
+			
+			
+			
+		</div><!--accordian-->
+	
+	</div><!--well-->
+
+</body>
+	<section id="footer" style="background-color:#292b34;">
+        <div class="container">
+    	    <div class="navbar-default navbar-fixed-bottom"  style="color: #fff; text-align: center; background-color:#000000; border:0px; padding: 20px;">
+			©Copyright 2017 | SUPERLATIVE TECHNOLOGIES, INC. (dba SUPRTEK)
+    	    </div><!--end .well .well-sm .main-footer-->
+    	</div><!--end .container-->
+    </section><!--end #footer-->
+</html>

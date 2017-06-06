@@ -1,0 +1,105 @@
+{
+	"contracts" : {
+		"contr_id": "String",
+		"contr_org_id": "Integer",
+		"contr_end_cust_id": "Integer",
+		"contr_type_cd": "String",
+		"prime_contr_id": "Integer",
+		"prime_contract_no": "String",
+		"contr_prog_cd": "String",
+		"contr_vehicle_cd": "String",
+		"contr_sec_level_cd": "String",
+		"contr_info_safe_level_cd": "String",
+		"contr_open_date": "TimeStamp",
+		"contr_close_date": "TimeStamp",
+		"is_open": "Boolean",
+		"exemptions": "String",
+		"dd254_recv": "Boolean",
+		"dd254_date": "TimeStamp"
+	},
+	"organizations" : {
+		"org_id": "Integer",
+		"org_type_cd": "String",
+		"org_name": "String",
+		"org_div": "String",
+		"org_addr1": "String",
+		"org_addr2": "String",
+		"org_city": "String",
+		"org_state_prov_cd": "String",
+		"org_post_cd": "String",
+		"org_cntry_cd": "String",
+		"cage_cd": "String"
+	},
+	"contacts" : {
+		"cont_id": "Integer",
+		"cont_org_id": "Integer",
+		"cont_role_cd": "String",
+		"cont_first_name": "String",
+		"cont_middle_name": "String",
+		"cont_last_name": "String",
+		"cont_name_title": "String",
+		"cont_name_suffix": "String",
+		"cont_addr1": "String",
+		"cont_addr2": "String",
+		"cont_city": "String",
+		"cont_state_prov_cd": "String",
+		"cont_post_cd": "String",
+		"cont_cntry_Cd": "String",
+		"cont_office_phone": "String",
+		"cont_mobile_phone": "String",
+		"cont_home_phone": "String",
+		"cont_email": "String",
+		"cont_alt_email": "String"
+	},
+	"directives" : {
+		"dir_id": "String",
+		"dir_contr_id": "String",
+		"dir_desc": "String",
+		"dir_issued_by": "Integer",
+		"dir_issued_date": "TimeStamp",
+		"dir_recv_by": "Integer",
+		"dir_recv_date": "TimeStamp"
+	},
+	"releases" : {
+		"rel_id": "Integer",
+		"dir_id": "String",
+		"rel_by": "Integer",
+		"rel_date": "TimeStamp",
+		"recv_by": "Integer",
+		"recv_date": "TimeStamp",
+		"rel_cntry_cd": "String"
+	},
+	"fe_data" : {
+		"table": "fe_data", 
+		"fe_data_id": "Integer",
+		"fe_desc": "String",
+		"written_req": "Boolean",
+		"doc_repro": "Boolean"
+	},
+	"employees" : {
+		"tbd later" : "tbd later"
+	},
+	"export_regulations" : {
+		"reg_id": "String",
+		"reg_title": "String",
+		"reg_desc": "String",
+		"appl_cntries": "String"
+	},
+	"travel" : {
+		"travel_id": "Integer",
+		"contr_id": "String",
+		"destination": "String",
+		"travel_begin_date": "TimeStamp",
+		"travel_end_date": "TimeStamp",
+		"tech_restrict_cd": "String",
+		"recv_travel_brief": "String"
+	},
+	"devices" : {
+		"dev_id": "Integer",
+		"dev_type": "String",
+		"dev_desc": "String",
+		"dev_owner_id": "Integer",
+		"dev_user_id": "Integer",
+		"dev_sn": "String"
+	}
+}
